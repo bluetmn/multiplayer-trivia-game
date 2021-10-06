@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %} WhoDaMan -Next Page {% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+
+{%block content %}
+  <div>
+    <header>
+      <h1>Additional Information </h1>
+    </header>
+
+  </div>
+
+  <div>
+    <p id="placeholder"> </p>
+  </div>
+
+
+  <button id="request" type="submit">Click for information</button>
+
+{% endblock %}
+
+{% block scripts %}
+<script src = "{{ url_for("static", filename = "info.js") }}"></script>
+{% endblock %}

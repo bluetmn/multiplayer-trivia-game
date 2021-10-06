@@ -23,6 +23,10 @@ def admin():
 def play(room):
     return render_template('play.html')
 
+@app.route('/info')
+def info():
+    return render_template('info.html')
+
 def is_admin(id, room):
     return rooms[room] == id
 
