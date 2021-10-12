@@ -21,7 +21,7 @@ $startForm.on('submit', function(event) {
   $startForm.hide()
   $panel.show()
   $nameField.blur()
-  
+
   socket.emit('join', data)
 })
 
@@ -34,7 +34,7 @@ $buzzButton.on('click', function(event) {
 
 socket.on('buzz', function(buzzData) {
   count++
-  
+
   if (data.name === buzzData.name) {
     $state.text('Number ' + count)
   }
