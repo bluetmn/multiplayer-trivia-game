@@ -63,6 +63,11 @@ def exists(data):
     room = data['room']
     emit('exists', room in rooms)
 
+@socketio.on('end')
+def on_end(data):
+    room = data['room']
+    emit('end', room=room)
+
 # only emitted by admin
 
 @socketio.on('create')

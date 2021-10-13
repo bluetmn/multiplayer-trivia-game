@@ -1,21 +1,24 @@
 {% extends "layout.html" %}
-{% block title %} WhoDaMan -Next Page {% endblock %}
+{% block title %} Settings Page {% endblock %}
 {% block head %} {{ super() }} {% endblock %}
 
 {%block content %}
-  <div>
-    <header>
-      <h1>Additional Information </h1>
-    </header>
+<header>
+  <h1> Admin Settings </h1>
+</header>
 
-  </div>
+<form id="questionType">
+  <label for="qtype">Question Type:
+  <input type="text" id="qtype" name="qtype"><br>
+  <input type="submit" value="Submit">
+</form>
 
-  <div>
-    <p id="placeholder"> </p>
-  </div>
+<form id="gameLength">
+  <label for="numquestions">How many questions per game?
+    <input type="text" id="numquestions" name="numquestions"><br>
+    <input type="submit" value="Submit">
+</form>
 
-
-  <button id="request" type="submit">Click for information</button>
 
 {% endblock %}
 

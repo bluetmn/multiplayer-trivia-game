@@ -1,10 +1,23 @@
 var socket = io()
-var $requestForm = $('#request')
-var $results = $('#results')
+var $typeForm = $('#questionType')
+var $questionField = $('#qtype')
+var $lengthForm = $('#gameLength')
+var $lengthField = $('#numquestions')
+var data = {
+  category = null,
+  gamelength  = 15
+}
 
-$requestForm.on('click', function(event) {
+$typeForm.on('submit', function(event) {
   event.preventDefault()
-  socket.emit('showInfo')
-  $requestForm.hide()
-  document.getElementById("placeholder").innerHTML = "here is the info you seek";
+  $typeForm.hide()
+  data.category = $questionField.val()
+  socket.emit(changeCat, data)
+})
+
+$typeForm.on('submit', function(event) {
+  event.preventDefault()
+  $lengthForm.hide()
+  data.gamelength = $lengthField.val()
+  socket.emit(changeLen, data)
 })

@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
     <div>
-      <main>
+      <main id="mainstuff">
         <form id="start">
           <header>
             <h1>
@@ -23,6 +23,10 @@
         <ul id="buzzes"></ul>
       </main>
     </div>
+    <section id="endScr" style="display:none">
+      <h1>Thanks for playing!</h1>
+      <p>blank is the winner!</p>
+    </section>
 {% endblock %}
 {% block scripts %}
     <script src="{{ url_for('static', filename='play.js') }}"></script>

@@ -2,12 +2,15 @@ var socket = io()
 var $startForm = $('#start')
 var $roomField = $('#room')
 var $panel = $('#panel')
+var $endScr = $('#endScr')
 var $beginButton = $('#begin')
 var $resetButton = $('#reset')
 var $shareLink = $('#shareLink')
 var $buzzes = $('#buzzes')
 var $roomCount = $('#roomCount')
 var data = { room: null }
+var gameQNum = 0
+var QMax = 10
 
 $('body').addClass('body--admin')
 
@@ -57,30 +60,37 @@ socket.on('create', function(success) {
   }
 })
 
-$beginButton.on('click', async function() {
-  $beginButton.hide()
-  $doneButton.show()
-  $skipButton.show()
-  const res = await getData('https://jservice.io/api/random?count=1')
-  let reset_data = data
-  reset_data.res = res
-  socket.emit('reset', reset_data)
-  $qcontent.html(`
-    <li class="paragraph">
-      <b>QUESTION</b>
-      <br>
-      <br>
-      📙 <span class="li">Category &mdash; ${res[0].category.title}</span>
-      💯 <span class="li">Points &mdash; ${res[0].value}</span>
-      🕵️ <span class="li">Question &mdash; ${res[0].question}</span>
-      🙋 <span class="li">Answer &mdash; ${res[0].answer}</span>
-    </li>
-  `)
-  stakes = res[0].value
-  $buzzes.html('')
-  if (res[0].value == null) {
-    $skipButton.click()
-  }
+$beginButton.on('click', async function() {  //functions that may not execute immediately
+  	$beginButton.hide()
+  	$doneButton.show()
+  	$skipButton.show()
+  	const res = await getData('https://jservice.io/api/random?count=1')
+		//
+  	let reset_data = data
+  	reset_data.res = res
+  	socket.emit('reset', reset_data)
+  	$qcontent.html(`
+    	<li class="paragraph">
+      	<b>QUESTION</b>
+      	<br>
+      	<br>
+      	📙 <span class="li">Category &mdash; ${res[0].category.title}</span>
+      	💯 <span class="li">Points &mdash; ${res[0].value}</span>
+      	🕵️ <span class="li">Question &mdash; ${res[0].question}</span>
+      	🙋 <span class="li">Answer &mdash; ${res[0].answer}</span>
+    	</li>
+  	`)
+  	stakes = res[0].value
+  	$buzzes.html('')
+  	if (res[0].value == null) {
+    	$skipButton.click()
+  	}
+		gameQNum++
+		if (gameQNum >= QMax) {
+			socket.emit('end', data)
+			$panel.hide()
+			$endScr.show()
+		}
 })
 
 $doneButton.on('click', function() {
@@ -144,4 +154,11 @@ socket.on('join', function(data) {
   $roomCount.text(count === 1 ? count + ' person' : count + ' people')
   $leaderboard.append(`<li class="panel__header">${data.name}<span>0</span></li>`)
   leaderboard[data.name] = 0
+})
+
+socket.on("changeLen", function(data) {
+	QMax = data.gameLength
+	if (gameQNum >= QMax) {
+		emit('end', leaderboard)
+	}
 })

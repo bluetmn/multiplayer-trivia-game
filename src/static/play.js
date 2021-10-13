@@ -5,6 +5,8 @@ var $panel = $('#panel')
 var $buzzButton = $('#buzz')
 var $state = $('#state')
 var $buzzes = $('#buzzes')
+var $mainScr = $('#mainstuff')
+var $endScr = $('#endScr')
 var data = {
   room: window.location.pathname.split('/')[1], // get the first path
   name: null
@@ -65,4 +67,9 @@ socket.on('reset', function(resetData) {
 socket.on('begin', function() {
   $buzzButton.show()
   // $state.hide()
+})
+
+socket.on('end', function(winner) {
+    $mainScr.hide()
+    $endScr.show()
 })
