@@ -42,6 +42,11 @@
             <div class="panel__label">Buzzes</div>
             <button id="skip" style="display: none;">Skip</button>
           </div>
+          <button id="settingsbutton" type="button">Settings</button>
+          <form id="settings" style="display:none">
+            <input id="questionNum", type="text", placeholder="Change the game length"></input>
+          </form>
+
           <ul id="buzzes">
           </ul>
         </div>
@@ -49,7 +54,7 @@
 
       <section id="endScr" style="display:none">
         <h1>Thanks for playing!</h1>
-        <p>blank is the winner!</p>
+        <p>_ is the winner!</p>
       </section>
     </main>
 {% endblock %}

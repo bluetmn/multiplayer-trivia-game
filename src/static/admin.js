@@ -12,6 +12,11 @@ var data = { room: null }
 var gameQNum = 0
 var QMax = 10
 
+var $questionNum = $('#questionNum')
+var $settingsform = $('#settings')
+var $settingsbutton = $('#settingsbutton')
+
+
 $('body').addClass('body--admin')
 
 async function getData(url) {
@@ -47,6 +52,19 @@ $resetButton.on('click', function() {
   `)
   data.leaderboard = leaderboard
   socket.emit('score', data)
+})
+
+$settingsbutton.on('click', function() {
+	$settingsbutton.hide()
+	$settingsform.show()
+})
+
+$settingsform.on('submit', function(event) {
+	event.preventDefault()
+	QMax = $questionNum.val()
+	$settingsform.hide()
+	settingsform.reset()
+	$settingsbutton.show()
 })
 
 socket.on('create', function(success) {
